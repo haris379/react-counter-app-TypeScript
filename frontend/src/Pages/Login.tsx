@@ -31,6 +31,7 @@ const Login = () => {
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.user.id);
+      localStorage.setItem("userName", response.data.user.name)
 
       setMsg(response.data.message);
       setTimeout(() => {
