@@ -28,12 +28,14 @@ const Navbar = () => {
         )}
 
         {userId ? (
-          <button
-            onClick={logout}
-            className="btn-primary text-sm py-2 px-4 w-full sm:w-auto"
-          >
-            Logout
-          </button>
+          <div className="flex gap-2 w-full sm:w-auto justify-center">
+            <button
+              onClick={logout}
+              className="btn-primary text-sm py-2 px-4 w-full sm:w-auto"
+            >
+              Logout
+            </button>
+          </div>
         ) : (
           <div className="flex gap-2 w-full sm:w-auto justify-center">
             <Link
