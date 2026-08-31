@@ -1,0 +1,54 @@
+import Counter from "./Counter";
+
+interface CounterObject {
+  id: number;
+  value: number;
+}
+
+interface CounterProps {
+  counters: CounterObject[];
+  onIncrement: (counter: CounterObject) => void;
+  onDecrement: (counter: CounterObject) => void;
+  onDelete: (id: number) => void;
+  onReset: () => void;
+  addCounter: () => void;
+}
+
+const Counters = ({
+  counters,
+  onIncrement,
+  onDelete,
+  onReset,
+  onDecrement,
+  addCounter,
+}: CounterProps) => {
+  return (
+    <>
+      <button
+        className="m-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+        onClick={onReset}
+      >
+        Reset
+      </button>
+
+      <button
+        className="m-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+        onClick={addCounter}
+      >
+        Add Counter
+      </button>
+
+      {counters.map((count) => (
+        <Counter
+          key={count.id}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
+          onDelete={onDelete}
+          count={count}
+        />
+      ))}
+    </>
+  );
+};
+
+export default Counters;
