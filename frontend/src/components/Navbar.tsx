@@ -17,10 +17,7 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-100 shadow-sm">
       <div className="w-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center">
-        <Link
-          to="/"
-          className="text-lg sm:text-xl font-bold text-gray-800"
-        >
+        <Link to="/" className="text-lg sm:text-xl font-bold text-gray-800">
           Counter App
         </Link>
 
@@ -60,4 +57,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
