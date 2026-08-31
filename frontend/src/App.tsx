@@ -86,13 +86,14 @@ const CounterApp = () => {
     <>
       <Navbar />
 
-      <h1 className="mt-6 mb-4 text-3xl font-bold text-center">
+      <h1 className="mt-5 sm:mt-6 mb-4 px-4 text-2xl sm:text-3xl font-bold text-center">
         Counter App
-        <span className="ml-2 px-2.5 py-0.5 text-sm font-semibold text-white bg-blue-600 rounded-full">
-          {/* {totalCounters} */} {counters.filter((c) => c.value > 0).length}
+        <span className="ml-2 px-2.5 py-0.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-full">
+          {counters.filter((c) => c.value > 0).length}
         </span>
       </h1>
-      <main className="max-w-4xl mx-auto px-4">
+
+      <main className="w-full max-w-4xl mx-auto px-3 sm:px-4">
         <Counters
           onIncrement={handleIncrement}
           onDecrement={handleDecrement}

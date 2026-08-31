@@ -36,9 +36,10 @@ const Counter = ({
       </button>
 
       <span
-        className={`m-2 px-3 py-1 text-sm font-semibold rounded-full ${getClasses()}`}
+        className={`min-w-[60px] text-center px-3 py-1 text-sm font-semibold rounded-full ${getClasses()}`}
       >
-        {formatCount()}
+        {" "}
+        {formatCount()}{" "}
       </span>
 
       <button

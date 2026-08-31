@@ -9,32 +9,47 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
 
     navigate("/");
   };
 
   return (
     <nav className="bg-gray-100 shadow-sm">
-      <div className="w-full px-4 py-3 flex justify-between items-center">
+      <div className="w-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center">
         <Link
           to="/"
-          className="flex items-center text-xl font-bold text-gray-800"
+          className="text-lg sm:text-xl font-bold text-gray-800"
         >
           Counter App
         </Link>
-        {userId ? <h2>Welcome, {userName}</h2> : ""}
+
+        {userId && (
+          <h2 className="text-sm sm:text-base font-medium text-gray-700 text-center">
+            Welcome, {userName}
+          </h2>
+        )}
 
         {userId ? (
-          <button onClick={logout} className="btn-primary text-sm py-2 px-4">
+          <button
+            onClick={logout}
+            className="btn-primary text-sm py-2 px-4 w-full sm:w-auto"
+          >
             Logout
           </button>
         ) : (
-          <div className="flex gap-2">
-            <Link to="/signup" className="btn-primary text-sm py-2 px-4">
+          <div className="flex gap-2 w-full sm:w-auto justify-center">
+            <Link
+              to="/signup"
+              className="btn-primary text-sm py-2 px-4 text-center"
+            >
               Sign up
             </Link>
 
-            <Link to="/login" className="btn-primary text-sm py-2 px-4">
+            <Link
+              to="/login"
+              className="btn-primary text-sm py-2 px-4 text-center"
+            >
               Login
             </Link>
           </div>
@@ -45,3 +60,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
