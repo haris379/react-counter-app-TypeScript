@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 
 interface FormObj {
@@ -18,6 +18,8 @@ const Signup = () => {
 
   const [msg, setMsg] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm({
       ...form,
@@ -34,31 +36,26 @@ const Signup = () => {
       console.log(response.data);
 
       setMsg(response.data.message);
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     } catch (error: any) {
       console.log(error);
 
-      setMsg(
-        error.response?.data?.message || "An error occurred"
-      );
+      setMsg(error.response?.data?.message || "An error occurred");
     }
   };
 
   return (
     <div className="min-h-[calc(100vh-64px)] bg-gray-50 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
-        
         {/* Signup Card */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-          
           {/* Heading */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">
-              Create Account
-            </h1>
+            <h1 className="text-3xl font-bold text-gray-800">Create Account</h1>
 
-            <p className="text-gray-500 mt-2">
-              Sign up to get started
-            </p>
+            <p className="text-gray-500 mt-2">Sign up to get started</p>
           </div>
 
           {/* Message */}
@@ -69,10 +66,7 @@ const Signup = () => {
           )}
 
           {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-5"
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Name */}
             <div>
               <label
