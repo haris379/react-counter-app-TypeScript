@@ -19,9 +19,11 @@ const defaultCounters: CounterObject[] = [
 
 const CounterApp = () => {
   const userID = localStorage.getItem("userId");
+  const storageKey = userID ? `counters_${userID}` : null;
+
   const [counters, setCounters] = useState<CounterObject[]>(() => {
-    if (userID) {
-      const savedCounters = localStorage.getItem("counters");
+    if (storageKey) {
+      const savedCounters = localStorage.getItem(storageKey);
 
       return savedCounters ? JSON.parse(savedCounters) : defaultCounters;
     }
@@ -30,8 +32,10 @@ const CounterApp = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem("counters", JSON.stringify(counters));
-  }, [counters]);
+    if (storageKey) {
+      localStorage.setItem(storageKey, JSON.stringify(counters));
+    }
+  }, [counters, storageKey]);
 
   const handleIncrement = (counter: CounterObject) => {
     const updatedCounter = [...counters];
