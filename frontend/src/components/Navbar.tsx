@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
+
   const navigate = useNavigate();
 
   const logout = () => {
@@ -19,27 +21,19 @@ const Navbar = () => {
         >
           Counter App
         </Link>
+        {userId ? <h2>Welcome, {userName}</h2> : ""}
 
         {userId ? (
-          <button
-            onClick={logout}
-            className="btn-primary text-sm py-2 px-4"
-          >
+          <button onClick={logout} className="btn-primary text-sm py-2 px-4">
             Logout
           </button>
         ) : (
           <div className="flex gap-2">
-            <Link
-              to="/signup"
-              className="btn-primary text-sm py-2 px-4"
-            >
+            <Link to="/signup" className="btn-primary text-sm py-2 px-4">
               Sign up
             </Link>
 
-            <Link
-              to="/login"
-              className="btn-primary text-sm py-2 px-4"
-            >
+            <Link to="/login" className="btn-primary text-sm py-2 px-4">
               Login
             </Link>
           </div>
