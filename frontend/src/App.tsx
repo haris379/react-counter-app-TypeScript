@@ -31,7 +31,6 @@ const CounterApp = () => {
 
   useEffect(() => {
     localStorage.setItem("counters", JSON.stringify(counters));
-    console.log(localStorage.getItem("userId"));
   }, [counters]);
 
   const handleIncrement = (counter: CounterObject) => {
@@ -89,7 +88,6 @@ const CounterApp = () => {
           {/* {totalCounters} */} {counters.filter((c) => c.value > 0).length}
         </span>
       </h1>
-
       <main className="max-w-4xl mx-auto px-4">
         <Counters
           onIncrement={handleIncrement}
