@@ -73,6 +73,10 @@ const CounterApp = () => {
     );
   };
 
+  const handlelogout = () => {
+    setCounters(defaultCounters);
+  };
+
   const handleAdd = () => {
     const newCounter: CounterObject = {
       id: counters.length > 0 ? Math.max(...counters.map((c) => c.id)) + 1 : 1,
@@ -84,7 +88,7 @@ const CounterApp = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar onLogout={handlelogout} />
 
       <h1 className="mt-5 sm:mt-6 mb-4 px-4 text-2xl sm:text-3xl font-bold text-center">
         Counter App

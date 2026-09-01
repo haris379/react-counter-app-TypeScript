@@ -1,6 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+interface NavbarProps {
+  onLogout: () => void;
+}
+
+const Navbar = ({ onLogout }: NavbarProps) => {
   const userId = localStorage.getItem("userId");
   const userName = localStorage.getItem("userName");
 
@@ -10,7 +14,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("userName");
-
+    onLogout();
     navigate("/");
   };
 
