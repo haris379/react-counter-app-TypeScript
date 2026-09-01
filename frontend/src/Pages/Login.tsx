@@ -36,7 +36,7 @@ const Login = () => {
       setMsg(response.data.message);
       setTimeout(() => {
         navigate("/");
-      }, 1000);
+      }, 250);
     } catch (error: any) {
       console.log(error);
 
