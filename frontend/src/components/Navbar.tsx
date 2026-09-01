@@ -35,7 +35,7 @@ const Navbar = ({ onLogout }: NavbarProps) => {
           <div className="flex gap-2 w-full sm:w-auto justify-center">
             <button
               onClick={logout}
-              className="btn-primary text-sm py-2 px-4 w-full sm:w-auto"
+              className="btn-primary text-sm py-2 px-4 w-full sm:w-auto hover:cursor-pointer"
             >
               Logout
             </button>
