@@ -108,9 +108,8 @@ const CounterApp = () => {
           addCounter={handleAdd}
           counters={counters}
         />
-       
       </main>
-       <ProfileCard/>
+      <ProfileCard />
     </>
   );
 };
@@ -122,7 +121,7 @@ const App = () => {
         <Route path="/" element={<CounterApp />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/login-id/:id" element={<LoginWithID/>}/>
+        <Route path="/login-id/:id" element={<LoginWithID />} />
       </Routes>
     </BrowserRouter>
   );
