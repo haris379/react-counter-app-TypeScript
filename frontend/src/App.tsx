@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import ProfileCard from "./components/ProfileCard";
-import UserProfile from "./components/UserProfile";
+import LoginWithID from "./Pages/LoginWithID";
 
 interface CounterObject {
   id: number;
@@ -122,7 +122,7 @@ const App = () => {
         <Route path="/" element={<CounterApp />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/user-profile" element={<UserProfile/>}/>
+        <Route path="/login-id/:id" element={<LoginWithID/>}/>
       </Routes>
     </BrowserRouter>
   );

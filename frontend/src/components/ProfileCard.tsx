@@ -8,8 +8,7 @@ const ProfileCard = () => {
   const loadUsers = async () => {
     try {
       const response = await api.get("/user/all-users");
-      console.log(response.data);
-      setUsers(response.data.users);
+      setUsers(response.data.users || []);
     } catch (error) {
       console.error("Error Getting Users");
     }
@@ -21,10 +20,11 @@ const ProfileCard = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-2 m-10">
+      {users.length === 0 && <p>No users found</p>}
+      <div className="grid grid-cols-3 md:grid-cols-3 gap-2 m-10">
         {users.map((user: any) => (
           <div
-            className=" bg-gray-400 hover:bg-gray-500 h-auto w-auto rounded-xl border flex flex-col justify-between"
+            className=" bg-gray-300  h-auto w-auto rounded-xl border flex flex-col justify-between"
             key={user._id}
           >
             <h2 className="text-center m-2 font-bold">User Profile</h2>
@@ -37,10 +37,10 @@ const ProfileCard = () => {
               </p>
             </div>
             <div className="text-center m-2">
-              {" "}
               <Link
-                to="/user-profile"
-                className="inline-block w-60 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
+                to={`/login-id/${user._id}`}
+                state={{ name: user.name, email: user.email }}
+                className="inline-block w-60 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
               >
                 Login
               </Link>
