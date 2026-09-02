@@ -4,6 +4,7 @@ import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
 import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
+import ProfileCard from "./components/ProfileCard";
 
 interface CounterObject {
   id: number;
@@ -97,7 +98,7 @@ const CounterApp = () => {
         </span>
       </h1>
 
-      <main className="w-full max-w-4xl mx-auto px-3 sm:px-4">
+      <main className="w-full max-w-4xl mx-auto px-2 sm:px-4">
         <Counters
           onIncrement={handleIncrement}
           onDecrement={handleDecrement}
@@ -106,8 +107,9 @@ const CounterApp = () => {
           addCounter={handleAdd}
           counters={counters}
         />
-        
+       
       </main>
+       <ProfileCard/>
     </>
   );
 };
