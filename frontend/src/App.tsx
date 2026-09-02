@@ -106,6 +106,7 @@ const CounterApp = () => {
           addCounter={handleAdd}
           counters={counters}
         />
+        
       </main>
     </>
   );
