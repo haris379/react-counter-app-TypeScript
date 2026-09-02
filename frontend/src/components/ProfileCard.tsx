@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import { Link } from "react-router-dom";
 
 const ProfileCard = () => {
   const [users, setUsers] = useState([]);
@@ -36,9 +37,13 @@ const ProfileCard = () => {
               </p>
             </div>
             <div className="text-center m-2">
-              <button className="w-1/2 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer">
+              {" "}
+              <Link
+                to="/user-profile"
+                className="inline-block w-60 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
+              >
                 Login
-              </button>
+              </Link>
             </div>
           </div>
         ))}
