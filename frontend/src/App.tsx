@@ -38,14 +38,6 @@ const CounterApp = () => {
     }
   }, [counters, storageKey]);
   
-  useEffect(() => {
-    if (token) {
-      console.log("User is logged in");
-    } else {
-      console.log("User is not logged in");
-    }
-  }, []);
-
   const handleIncrement = (counter: CounterObject) => {
     const updatedCounter = [...counters];
     const index = updatedCounter.indexOf(counter);
@@ -115,8 +107,8 @@ const CounterApp = () => {
           addCounter={handleAdd}
           counters={counters}
         />
-      </main>
       {!token ? <ProfileCard /> : <div></div>}
+      </main>
     </>
   );
 };
