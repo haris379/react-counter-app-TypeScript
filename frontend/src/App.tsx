@@ -21,15 +21,14 @@ const defaultCounters: CounterObject[] = [
 
 const CounterApp = () => {
   const userID = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const storageKey = userID ? `counters_${userID}` : null;
 
   const [counters, setCounters] = useState<CounterObject[]>(() => {
     if (storageKey) {
       const savedCounters = localStorage.getItem(storageKey);
-
       return savedCounters ? JSON.parse(savedCounters) : defaultCounters;
     }
-
     return defaultCounters;
   });
 
@@ -38,6 +37,14 @@ const CounterApp = () => {
       localStorage.setItem(storageKey, JSON.stringify(counters));
     }
   }, [counters, storageKey]);
+  
+  useEffect(() => {
+    if (token) {
+      console.log("User is logged in");
+    } else {
+      console.log("User is not logged in");
+    }
+  }, []);
 
   const handleIncrement = (counter: CounterObject) => {
     const updatedCounter = [...counters];
@@ -109,7 +116,7 @@ const CounterApp = () => {
           counters={counters}
         />
       </main>
-      <ProfileCard />
+      {!token ? <ProfileCard /> : <div></div>}
     </>
   );
 };

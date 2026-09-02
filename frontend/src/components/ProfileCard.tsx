@@ -21,7 +21,7 @@ const ProfileCard = () => {
   return (
     <>
       {users.length === 0 && <p>No users found</p>}
-      <div className="grid grid-cols-3 md:grid-cols-3 gap-2 m-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 m-3">
         {users.map((user: any) => (
           <div
             className=" bg-gray-300  h-auto w-auto rounded-xl border flex flex-col justify-between"
