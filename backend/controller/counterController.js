@@ -38,3 +38,21 @@ export const deleteCounter = async (req, res) => {
     res.status(500).json({ message: "Error Deleting Counter", error });
   }
 };
+
+export const incrementValue = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const counter = await Counter.findOne({ _id: id });
+    if (!counter) {
+      return res.status(400).json({ message: "Counter not Found" });
+    }
+    counter.value += 1;
+
+    await counter.save();
+    res
+      .status(200)
+      .json({ message: "Counter Value Incremented Successfully", counter });
+  } catch (error) {
+    res.status(500).json({ message: "Error Incrementing Counter", error });
+  }
+};
