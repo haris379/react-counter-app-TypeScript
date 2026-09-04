@@ -10,6 +10,14 @@ const counterSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
+  name: {
+    type: mongoose.Schema.Types.String,
+    ref: "User",
+  },
+  email: {
+    type: mongoose.Schema.Types.String,
+    ref: "User",
+  },
 });
 
 export default mongoose.model("Counter", counterSchema);

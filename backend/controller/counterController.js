@@ -18,6 +18,8 @@ export const addCounter = async (req, res) => {
     const counter = await Counter.create({
       value: 0,
       user: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
     });
     res.status(200).json({ message: "Counter created Successfully", counter });
   } catch (error) {
