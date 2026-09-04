@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
 import Signup from "./Pages/Signup";
-import Login from "./Pages/Login";
 import ProfileCard from "./components/ProfileCard";
 import LoginWithID from "./Pages/LoginWithID";
+import api from "./api/axios.ts";
 
 interface CounterObject {
   id: number;
@@ -13,10 +13,10 @@ interface CounterObject {
 }
 
 const defaultCounters: CounterObject[] = [
-  { id: 1, value: 0 },
-  { id: 2, value: 0 },
-  { id: 3, value: 0 },
-  { id: 4, value: 0 },
+  // { id: 1, value: 0 },
+  // { id: 2, value: 0 },
+  // { id: 3, value: 0 },
+  // { id: 4, value: 0 },
 ];
 
 const CounterApp = () => {
@@ -24,20 +24,22 @@ const CounterApp = () => {
   const token = localStorage.getItem("token");
   const storageKey = userID ? `counters_${userID}` : null;
 
-  const [counters, setCounters] = useState<CounterObject[]>(() => {
+
+  const [counters, setCounters] = useState<CounterObject[]>(
+    () => {
     if (storageKey) {
       const savedCounters = localStorage.getItem(storageKey);
       return savedCounters ? JSON.parse(savedCounters) : defaultCounters;
     }
-    return defaultCounters;
-  });
+    return defaultCounters; }
+  );
 
   useEffect(() => {
     if (storageKey) {
       localStorage.setItem(storageKey, JSON.stringify(counters));
     }
   }, [counters, storageKey]);
-  
+
   const handleIncrement = (counter: CounterObject) => {
     const updatedCounter = [...counters];
     const index = updatedCounter.indexOf(counter);
@@ -61,8 +63,22 @@ const CounterApp = () => {
     setCounters(updatedCounter);
   };
 
-  const handleDelete = (id: number) => {
-    setCounters(counters.filter((count) => count.id !== id));
+  const handleDelete = async (id: string | number) => {
+    try {
+      await api.delete(`/counter/${id}`);
+
+      setCounters((prevCounters) =>
+        prevCounters.filter((counter) => counter.id !== id),
+      );
+
+      console.log("Counter deleted successfully");
+    } catch (error: any) {
+      console.error("Error deleting counter:", error);
+
+      if (error.response?.status === 401) {
+        alert("Please login to continue");
+      }
+    }
   };
 
   const handleReset = () => {
@@ -78,13 +94,29 @@ const CounterApp = () => {
     setCounters(defaultCounters);
   };
 
-  const handleAdd = () => {
-    const newCounter: CounterObject = {
-      id: counters.length > 0 ? Math.max(...counters.map((c) => c.id)) + 1 : 1,
-      value: 0,
-    };
+  const handleAdd = async () => {
+    try {
+      const response = await api.post("/counter/add");
 
-    setCounters([...counters, newCounter]);
+      const newCounter = response.data.counter;
+
+      setCounters((prevCounters) => [
+        ...prevCounters,
+        {
+          id: newCounter._id,
+          value: newCounter.value,
+        },
+      ]);
+
+      console.log(newCounter);
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        alert("Please login to continue");
+        return;
+      }
+
+      console.error("Error adding counter:", error);
+    }
   };
 
   return (
@@ -107,7 +139,7 @@ const CounterApp = () => {
           addCounter={handleAdd}
           counters={counters}
         />
-      {!token ? <ProfileCard /> : <div></div>}
+        {!token ? <ProfileCard /> : <div></div>}
       </main>
     </>
   );
@@ -119,7 +151,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<CounterApp />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/login-id/:id" element={<LoginWithID />} />
       </Routes>
     </BrowserRouter>
