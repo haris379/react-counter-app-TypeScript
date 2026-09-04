@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import express from "express";
 import authRoutes from "./Routes/authRoutes.js";
 import userRoutes from "./Routes/userRoutes.js";
+import counterRoutes from "./Routes/counterRoutes.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ connectDB();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/counter", counterRoutes);
 
 app.listen(3001, () => {
   console.log(`Server is running on Port 3001`);
