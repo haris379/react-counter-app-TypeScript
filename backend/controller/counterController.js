@@ -8,7 +8,22 @@ export const addCounter = async (req, res) => {
     });
     res.status(200).json({ message: "Counter created Successfully", counter });
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: "Server error", error });
+  }
+};
+
+export const deleteCounter = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await Counter.findOneAndDelete({
+      _id: id,
+      user: req.user._id,
+    });
+
+    res.status(200).json({ message: "Counter deleted Successfully" });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: "Error Deleting Counter", error });
   }
 };
