@@ -44,7 +44,9 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Incorrect Password" });
     }
 
-    const token = jwt.sign({ id: user._id }, "secretkey", { expiresIn: "5h" });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRE_KEY, {
+      expiresIn: "5h",
+    });
 
     res.status(200).json({
       message: "Login Successfully",
@@ -79,7 +81,9 @@ export const loginSpecificUser = async (req, res) => {
       return res.status(400).json({ message: "Incorrect Password" });
     }
 
-    const token = jwt.sign({ id: user._id }, "secretkey", { expiresIn: "5h" });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRE_KEY, {
+      expiresIn: "5h",
+    });
 
     res.status(200).json({
       message: "Login Successfully",
