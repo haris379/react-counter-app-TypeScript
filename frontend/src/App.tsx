@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
 import Signup from "./Pages/Signup";
@@ -8,15 +8,15 @@ import LoginWithID from "./Pages/LoginWithID";
 import api from "./api/axios.ts";
 
 interface CounterObject {
-  id: number;
+  id: number | string;
   value: number;
 }
 
 const defaultCounters: CounterObject[] = [
-  // { id: 1, value: 0 },
-  // { id: 2, value: 0 },
-  // { id: 3, value: 0 },
-  // { id: 4, value: 0 },
+  { id: "1", value: 0 },
+  { id: "2", value: 0 },
+  { id: "3", value: 0 },
+  { id: "4", value: 0 },
 ];
 
 const CounterApp = () => {
@@ -24,15 +24,13 @@ const CounterApp = () => {
   const token = localStorage.getItem("token");
   const storageKey = userID ? `counters_${userID}` : null;
 
-
-  const [counters, setCounters] = useState<CounterObject[]>(
-    () => {
+  const [counters, setCounters] = useState<CounterObject[]>(() => {
     if (storageKey) {
       const savedCounters = localStorage.getItem(storageKey);
       return savedCounters ? JSON.parse(savedCounters) : defaultCounters;
     }
-    return defaultCounters; }
-  );
+    return defaultCounters;
+  });
 
   useEffect(() => {
     if (storageKey) {

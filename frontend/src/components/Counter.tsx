@@ -1,5 +1,5 @@
 interface CounterObject {
-  id: number;
+  id: number | string;
   value: number;
 }
 
@@ -7,7 +7,7 @@ interface CounterProps {
   count: CounterObject;
   onIncrement: (counter: CounterObject) => void;
   onDecrement: (counter: CounterObject) => void;
-  onDelete: (id: number) => void;
+  onDelete: (id: number | string) => void;
 }
 
 const Counter = ({
