@@ -18,6 +18,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/counter", counterRoutes);
 
-app.listen(3001, () => {
-  console.log(`Server is running on Port 3001`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on Port ${process.env.PORT}`);
 });
