@@ -21,10 +21,10 @@ export const signup = async (req, res) => {
     const user = await User.create({ name, email, password: hashPassword });
 
     await Counter.insertMany([
-      { value: 0, user: user._id },
-      { value: 0, user: user._id },
-      { value: 0, user: user._id },
-      { value: 0, user: user._id },
+      { value: 0, user: user._id, name: user.name, email: user.email },
+      { value: 0, user: user._id, name: user.name, email: user.email },
+      { value: 0, user: user._id, name: user.name, email: user.email },
+      { value: 0, user: user._id, name: user.name, email: user.email },
     ]);
 
     res.status(200).json({ message: "User registered Successfully" });
@@ -34,7 +34,6 @@ export const signup = async (req, res) => {
 };
 
 // Login
-
 export const loginSpecificUser = async (req, res) => {
   try {
     const { id } = req.params;

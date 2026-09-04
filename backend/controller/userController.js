@@ -9,7 +9,7 @@ export const getAllUser = async (req, res) => {
     }
     res.status(200).json({ message: "All Users Fetched", users });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    res.status(500).json({ message: "Error Fetching Users", error });
   }
 };
 
@@ -24,7 +24,7 @@ export const getUser = async (req, res) => {
     }
     res.status(200).json({ message: "User Found Successfully", user });
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: "Server error", error });
+    console.log(error);
+    res.status(500).json({ message: "Error Fetching User with ID", error });
   }
 };

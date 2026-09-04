@@ -23,7 +23,7 @@ export const addCounter = async (req, res) => {
     });
     res.status(200).json({ message: "Counter created Successfully", counter });
   } catch (error) {
-    res.status(500).json({ message: "Error Getting Counter", error });
+    res.status(500).json({ message: "Error Adding Counter", error });
   }
 };
 
