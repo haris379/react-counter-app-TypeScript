@@ -13,7 +13,14 @@ interface CounterObject {
 }
 
 const CounterApp = () => {
-  const [counters, setCounters] = useState<CounterObject[]>([]);
+  const token = localStorage.getItem("token");
+
+  const [counters, setCounters] = useState<CounterObject[]>([
+    { id: 1, value: 0 },
+    { id: 2, value: 0 },
+    { id: 3, value: 0 },
+    { id: 4, value: 0 },
+  ]);
   const navigate = useNavigate();
 
   const handleIncrement = (counter: CounterObject) => {
@@ -38,8 +45,6 @@ const CounterApp = () => {
 
     setCounters(updatedCounter);
   };
-
-  const token = localStorage.getItem("token");
 
   const handleDelete = async (id: string | number) => {
     try {
