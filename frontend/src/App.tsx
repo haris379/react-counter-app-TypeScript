@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
@@ -14,6 +14,7 @@ interface CounterObject {
 
 const CounterApp = () => {
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const [counters, setCounters] = useState<CounterObject[]>([
     { id: 1, value: 0 },
@@ -21,7 +22,23 @@ const CounterApp = () => {
     { id: 3, value: 0 },
     { id: 4, value: 0 },
   ]);
-  const navigate = useNavigate();
+
+  const loadCounters = async () => {
+    try {
+      const response = await api.get("/counter");
+      const countersDB = response.data.counters.map((counter: any) => ({
+        id: counter._id,
+        value: counter.value,
+      }));
+
+      setCounters(countersDB);
+    } catch (error) {
+      // console.error("Error loading counters:", error);
+    }
+  };
+  useEffect(() => {
+    loadCounters();
+  }, []);
 
   const handleIncrement = (counter: CounterObject) => {
     const updatedCounter = [...counters];
@@ -46,24 +63,6 @@ const CounterApp = () => {
     setCounters(updatedCounter);
   };
 
-  const handleDelete = async (id: string | number) => {
-    try {
-      await api.delete(`/counter/${id}`);
-
-      setCounters((prevCounters) =>
-        prevCounters.filter((counter) => counter.id !== id),
-      );
-
-      console.log("Counter deleted successfully");
-    } catch (error: any) {
-      console.error("Error deleting counter:", error);
-
-      if (error.response?.status === 401) {
-        alert("Please login to continue");
-      }
-    }
-  };
-
   const handleReset = () => {
     setCounters(
       counters.map((c) => ({
@@ -74,7 +73,9 @@ const CounterApp = () => {
   };
 
   const handlelogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
 
     setCounters([]);
 
@@ -83,26 +84,39 @@ const CounterApp = () => {
 
   const handleAdd = async () => {
     try {
-      const response = await api.post("/counter/add");
+      await api.post("/counter/add");
 
-      const newCounter = response.data.counter;
+      const response = await api.get("/counter");
+      const counters = response.data.counters.map((count: any) => ({
+        id: count._id,
+        value: count.value,
+      }));
 
-      setCounters((prevCounters) => [
-        ...prevCounters,
-        {
-          id: newCounter._id,
-          value: newCounter.value,
-        },
-      ]);
-
-      console.log(newCounter);
+      setCounters(counters);
     } catch (error: any) {
       if (error.response?.status === 401) {
         alert("Please login to continue");
         return;
       }
-
       console.error("Error adding counter:", error);
+    }
+  };
+
+  const handleDelete = async (id: string | number) => {
+    try {
+      await api.delete(`/counter/${id}`);
+      // const response = await api.get("/counter");
+      // setCounters(response.data.counters);
+
+      setCounters((prevCounters) =>
+        prevCounters.filter((counter) => counter.id !== id),
+      );
+    } catch (error: any) {
+      console.error("Error deleting counter:", error);
+
+      if (error.response?.status === 401) {
+        alert("Please login to continue");
+      }
     }
   };
 
