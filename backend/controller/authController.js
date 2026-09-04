@@ -1,4 +1,5 @@
 import User from "../model/User.js";
+import Counter from "../model/Counter.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -17,7 +18,14 @@ export const signup = async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    await User.create({ name, email, password: hashPassword });
+    const user = await User.create({ name, email, password: hashPassword });
+
+    await Counter.insertMany([
+      { value: 0, user: user._id },
+      { value: 0, user: user._id },
+      { value: 0, user: user._id },
+      { value: 0, user: user._id },
+    ]);
 
     res.status(200).json({ message: "User registered Successfully" });
   } catch (error) {
