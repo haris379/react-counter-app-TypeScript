@@ -48,13 +48,6 @@ const Navbar = ({ onLogout }: NavbarProps) => {
             >
               Sign up
             </Link>
-
-            <Link
-              to="/login"
-              className="btn-primary text-sm py-2 px-4 text-center"
-            >
-              Login
-            </Link>
           </div>
         )}
       </div>
