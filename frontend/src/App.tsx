@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Counters from "./components/Counters";
 import Navbar from "./components/Navbar";
 import Signup from "./Pages/Signup";
@@ -12,15 +12,9 @@ interface CounterObject {
   value: number;
 }
 
-const defaultCounters: CounterObject[] = [
-  { id: "1", value: 0 },
-  { id: "2", value: 0 },
-  { id: "3", value: 0 },
-  { id: "4", value: 0 },
-];
-
 const CounterApp = () => {
   const [counters, setCounters] = useState<CounterObject[]>([]);
+  const navigate = useNavigate();
 
   const handleIncrement = (counter: CounterObject) => {
     const updatedCounter = [...counters];
@@ -75,7 +69,11 @@ const CounterApp = () => {
   };
 
   const handlelogout = () => {
-    setCounters(defaultCounters);
+    localStorage.clear();
+
+    setCounters([]);
+
+    navigate("/");
   };
 
   const handleAdd = async () => {
