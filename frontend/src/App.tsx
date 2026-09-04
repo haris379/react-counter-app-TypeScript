@@ -105,9 +105,7 @@ const CounterApp = () => {
   const handleDelete = async (id: string | number) => {
     try {
       await api.delete(`/counter/${id}`);
-      // const response = await api.get("/counter");
-      // setCounters(response.data.counters);
-
+    
       setCounters((prevCounters) =>
         prevCounters.filter((counter) => counter.id !== id),
       );
