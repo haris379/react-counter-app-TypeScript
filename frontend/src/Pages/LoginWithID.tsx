@@ -57,16 +57,13 @@ const LoginWithID = () => {
             <p className="text-gray-500 mt-2">Login to get started</p>
           </div>
 
-          {/* Message */}
           {msg && (
             <div className="mb-5 rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 text-center text-sm text-blue-700">
               {msg}
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            {/* Email */}
             <div>
               <label
                 htmlFor="email"
