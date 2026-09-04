@@ -1,5 +1,6 @@
 import Counter from "../model/Counter.js";
 
+// Fetch All Counter of a User
 export const getCounters = async (req, res) => {
   try {
     const counters = await Counter.find({
@@ -11,6 +12,7 @@ export const getCounters = async (req, res) => {
   }
 };
 
+// Add Counter
 export const addCounter = async (req, res) => {
   try {
     const counter = await Counter.create({
@@ -23,6 +25,7 @@ export const addCounter = async (req, res) => {
   }
 };
 
+// Delete Counter
 export const deleteCounter = async (req, res) => {
   try {
     const { id } = req.params;
@@ -39,6 +42,7 @@ export const deleteCounter = async (req, res) => {
   }
 };
 
+// Increment Counter Value
 export const incrementValue = async (req, res) => {
   try {
     const { id } = req.params;
@@ -54,5 +58,27 @@ export const incrementValue = async (req, res) => {
       .json({ message: "Counter Value Incremented Successfully", counter });
   } catch (error) {
     res.status(500).json({ message: "Error Incrementing Counter", error });
+  }
+};
+
+// Decrement Counter Value
+export const decrementValue = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const counter = await Counter.findOne({ _id: id });
+    if (!counter) {
+      return res.status(400).json({ message: "Counter not Found" });
+    }
+    if (counter.value === 0) {
+      return res.status(401).json({ message: "No Decrement" });
+    }
+    counter.value -= 1;
+
+    await counter.save();
+    res
+      .status(200)
+      .json({ message: "Counter Value Decremented Successfully", counter });
+  } catch (error) {
+    res.status(500).json({ message: "Error Decrementing Counter", error });
   }
 };
