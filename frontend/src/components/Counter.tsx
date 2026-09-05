@@ -26,6 +26,7 @@ const Counter = ({
       : "bg-blue-600 text-white";
   };
 
+
   return (
     <div className="flex flex-row items-center mb-3">
       <button

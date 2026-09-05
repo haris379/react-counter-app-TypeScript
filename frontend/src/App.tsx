@@ -40,14 +40,22 @@ const CounterApp = () => {
     loadCounters();
   }, []);
 
-  const handleIncrement = (counter: CounterObject) => {
-    const updatedCounter = [...counters];
-    const index = updatedCounter.indexOf(counter);
-
-    updatedCounter[index] = { ...counter };
-    updatedCounter[index].value++;
-
-    setCounters(updatedCounter);
+  const handleIncrement = async (counter: CounterObject) => {
+    try {
+      const response = await api.put(`/counter/increment/${counter.id}`);
+      setCounters((prevCounters) =>
+        prevCounters.map((item) =>
+          item.id === counter.id
+            ? {
+                ...item,
+                value: response.data.counter.value,
+              }
+            : item,
+        ),
+      );
+    } catch (error) {
+      console.error("Error Incrementing Value");
+    }
   };
 
   const handleDecrement = (counter: CounterObject) => {
@@ -105,7 +113,7 @@ const CounterApp = () => {
   const handleDelete = async (id: string | number) => {
     try {
       await api.delete(`/counter/${id}`);
-    
+
       setCounters((prevCounters) =>
         prevCounters.filter((counter) => counter.id !== id),
       );
