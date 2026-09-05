@@ -33,7 +33,7 @@ const CounterApp = () => {
 
       setCounters(countersDB);
     } catch (error) {
-      // console.error("Error loading counters:", error);
+      console.error("Error loading counters:", error);
     }
   };
   useEffect(() => {
