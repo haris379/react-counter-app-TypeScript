@@ -69,6 +69,18 @@ const CounterApp = () => {
   };
 
   const handleDecrement = async (counter: CounterObject) => {
+    if (!token) {
+      setCounters((counters) =>
+        counters.map((item) =>
+          item.id === counter.id
+            ? item.value > 0
+              ? { ...item, value: item.value - 1 }
+              : item
+            : item,
+        ),
+      );
+      return;
+    }
     try {
       const response = await api.put(`/counter/decrement/${counter.id}`);
       setCounters((counters) =>
