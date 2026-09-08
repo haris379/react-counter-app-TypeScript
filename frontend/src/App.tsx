@@ -12,16 +12,18 @@ interface CounterObject {
   value: number;
 }
 
+const defaultCounters = [
+  { id: 1, value: 0 },
+  { id: 2, value: 0 },
+  { id: 3, value: 0 },
+  { id: 4, value: 0 },
+];
+
 const CounterApp = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  const [counters, setCounters] = useState<CounterObject[]>([
-    { id: 1, value: 0 },
-    { id: 2, value: 0 },
-    { id: 3, value: 0 },
-    { id: 4, value: 0 },
-  ]);
+  const [counters, setCounters] = useState<CounterObject[]>(defaultCounters);
 
   const loadCounters = async () => {
     try {
@@ -90,7 +92,7 @@ const CounterApp = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("userName");
 
-    setCounters([]);
+    setCounters(defaultCounters);
 
     navigate("/");
   };
