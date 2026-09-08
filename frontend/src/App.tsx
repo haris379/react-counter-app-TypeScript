@@ -44,8 +44,8 @@ const CounterApp = () => {
 
   const handleIncrement = async (counter: CounterObject) => {
     if (!token) {
-      setCounters((prevCounters) =>
-        prevCounters.map((item) =>
+      setCounters((counters) =>
+        counters.map((item) =>
           item.id === counter.id ? { ...item, value: item.value + 1 } : item,
         ),
       );
